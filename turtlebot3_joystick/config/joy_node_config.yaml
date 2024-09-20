@@ -1,7 +1,5 @@
 /joy_node:
   ros__parameters:
-  # Make sure autorepeat_rate is large enough that even with dropped messages between joystick host and turtlebot3 computer, 
-  # messages will be fast enough that firmware deadman switch will not be triggered
     autorepeat_rate: 100.0 
     coalesce_interval_ms: 1
     deadzone: 0.3
