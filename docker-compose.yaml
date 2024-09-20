@@ -10,13 +10,15 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - ./turtlebot3_bringup:/home/humble_ws/src/turtlebot3_bringup
+      - ./docker/turtlebot3/entry_scripts/tb3_gz_slam_or_nav_entrypoint.sh:/tb3_gz_slam_or_nav_entrypoint.sh
     working_dir: /home/humble_ws
     environment:
       - DISPLAY=${DISPLAY}
       - ROS_DOMAIN_ID=8
       - SLAM_OR_NAV=${SLAM_OR_NAV}
-    restart: "no"
-    command: sleep infinity
+      - USE_HEADLESS=${USE_HEADLESS}
+    # command: sleep infinity
+    entrypoint: /tb3_gz_slam_or_nav_entrypoint.sh
     network_mode: host
     ipc: host
     pid: host
@@ -35,7 +37,6 @@ services:
       - ./turtlebot3_joystick:/home/humble_ws/src/turtlebot3_joystick:rw
       - ./turtlebot3_bringup:/home/humble_ws/src/turtlebot3_bringup
     privileged: true
-    restart: "no"
     entrypoint: /joystick_entrypoint.sh
     network_mode: host
     ipc: host
