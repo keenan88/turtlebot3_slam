@@ -1,0 +1,42 @@
+services:
+
+  turtlebot3-gz-slam-or-nav:
+    container_name: turtlebot3-slam
+    build:
+      context: .
+      dockerfile: ./docker/turtlebot3/dockerfiles/tb3_gz_slam_or_nav.dockerfile
+    tty: true
+    stdin_open: true
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./turtlebot3_bringup:/home/humble_ws/src/turtlebot3_bringup
+    working_dir: /home/humble_ws
+    environment:
+      - DISPLAY=${DISPLAY}
+      - ROS_DOMAIN_ID=8
+      - SLAM_OR_NAV=${SLAM_OR_NAV}
+    restart: "no"
+    command: sleep infinity
+    network_mode: host
+    ipc: host
+    pid: host
+
+  turtlebot3-joytick:
+    container_name: turtlebot3-joystick
+    build:
+      context: .
+      dockerfile: ./docker/turtlebot3/dockerfiles/joystick.dockerfile
+    tty: true
+    stdin_open: true
+    environment:
+      - ROS_DOMAIN_ID=8
+    volumes:
+      - ./docker/turtlebot3/entry_scripts/joystick_entrypoint.sh:/joystick_entrypoint.sh:rw
+      - ./turtlebot3_joystick:/home/humble_ws/src/turtlebot3_joystick:rw
+      - ./turtlebot3_bringup:/home/humble_ws/src/turtlebot3_bringup
+    privileged: true
+    restart: "no"
+    entrypoint: /joystick_entrypoint.sh
+    network_mode: host
+    ipc: host
+    pid: host
