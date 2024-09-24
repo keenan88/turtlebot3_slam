@@ -41,3 +41,21 @@ services:
     network_mode: host
     ipc: host
     pid: host
+
+  turtlebot3-keyboard-teleop:
+    container_name: turtlebot3-keyboard-teleop
+    build:
+      context: .
+      dockerfile: ./docker/turtlebot3/dockerfiles/keyboard_teleop.dockerfile
+    environment:
+      - DISPLAY=${DISPLAY}
+      - ROS_DOMAIN_ID=8
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./docker/turtlebot3/entry_scripts/keyboard_teleop.sh:/keyboard_teleop.sh
+    tty: true
+    entrypoint: /keyboard_teleop.sh
+    stdin_open: true
+    network_mode: host
+    ipc: host
+    pid: host
