@@ -6,7 +6,7 @@
 2. (Optional) Plugin a Microsoft Xbox controller via USB (model 1914, check model with `lsusb`).
 3. In `.env`, set `NAV_OR_SLAM` to `NAV` or `SLAM`.
 4. Run `docker compose build`
-5. Run `docker compose up`. Rviz2 will appear quickly, Gazebo will take ~30-45s to load.
+5. Run `docker compose up`. Rviz2 will appear quickly, Gazebo will take ~30-45s to load. A terminal will appear for teleop control.
 6. For SLAM:  
    1. Drive the robot around with either:  
       - Xbox controller (hold down right bumper, move right joystick)  
